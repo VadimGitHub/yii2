@@ -12,7 +12,7 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
-
+    public $rPassword;
 
     /**
      * {@inheritdoc}
@@ -22,19 +22,32 @@ class SignupForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Такой логин уже занят.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Пользователь с таким email уже зарегистрирован.'],
 
             ['password', 'required'],
-            ['password', 'string', 'min' => 6],
+            ['password', 'string', 'min' => 8],
+
+            ['rPassword', 'required'],
+            ['rPassword', 'compare', 'compareAttribute'=>'password', 'message' => 'Пароли не совпадают.' ],
         ];
     }
+
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Логин',
+            'password' => 'Пароль',
+            'rPassword' => 'Повторите пароль'
+        ];
+    }
+
 
     /**
      * Signs user up.

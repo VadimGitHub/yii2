@@ -39,8 +39,7 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [
-            ],
+            'rules' => require (__DIR__.'/routes.php'),
         ],
     ],
     'params' => $params,
