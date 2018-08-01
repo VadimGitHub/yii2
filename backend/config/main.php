@@ -6,15 +6,21 @@ $params = array_merge(
     require __DIR__ . '/params-local.php'
 );
 
-return [
-    'id' => 'app-backend',
+$config = [
+    'id' => 'id-backend',
+    'name' => Yii::$app->params['name'],
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
-    'bootstrap' => ['log'],
+    'bootstrap' => [
+        'log'
+    ],
+    'homeUrl' => '/admin',
     'modules' => [],
     'components' => [
+        'db' => require(__DIR__.'/db.php'),
         'request' => [
-            'csrfParam' => '_csrf-backend',
+            'baseUrl' => '/admin',
+            'csrfParam' => '_csrf_backend',
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -36,13 +42,30 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'db' => require(__DIR__.'/db.php'),
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => require (__DIR__.'/routes.php'),
-
         ],
     ],
     'params' => $params,
+//    Примеры
+//    'on afterRequest' => function (\yii\base\Event $event) {
+//        $sender = $event->sender;
+//        if($sender->requestedRoute != 'debug/default/toolbar' && !Yii::$app->request->isAjax) {
+//            \yii\helpers\Url::remember($_SERVER['REQUEST_URI'] ?? '', ControllerUrlHelper::PREVIOUS_GLOBAL_URL);
+//        }
+//    },
+//    'on beforeRequest' => function (\yii\base\Event $event) {
+//        if(!Yii::$app->user->isGuest) {
+//            $user = Yii::$app->user->identity;
+//            if($user->language) {
+//                Yii::$app->language = $user->language;
+//            } else {
+//                Yii::$app->language = 'ru-RU';
+//            }
+//        }
+//    },
 ];
+
+return $config;
