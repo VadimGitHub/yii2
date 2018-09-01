@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\rbac\AuthItemSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
@@ -29,9 +30,17 @@ class RbacController extends Controller
         ];
     }
 
+    /**
+     * @return string
+     */
     public function actionRole()
     {
-        return $this->render('role');
-    }
+        $searchModel = new AuthItemSearch(['type' => 1]);
+        $dataProvider = $searchModel->search();
 
+        return $this->render('role', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider
+        ]);
+    }
 }

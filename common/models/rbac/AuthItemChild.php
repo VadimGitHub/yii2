@@ -2,8 +2,6 @@
 
 namespace common\models\rbac;
 
-use Yii;
-
 /**
  * This is the model class for table "auth_item_child".
  *
@@ -32,8 +30,8 @@ class AuthItemChild extends \yii\db\ActiveRecord
             [['parent', 'child'], 'required'],
             [['parent', 'child'], 'string', 'max' => 64],
             [['parent', 'child'], 'unique', 'targetAttribute' => ['parent', 'child']],
-            [['parent'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::className(), 'targetAttribute' => ['parent' => 'name']],
-            [['child'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::className(), 'targetAttribute' => ['child' => 'name']],
+            [['parent'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::class, 'targetAttribute' => ['parent' => 'name']],
+            [['child'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::class, 'targetAttribute' => ['child' => 'name']],
         ];
     }
 
@@ -53,7 +51,7 @@ class AuthItemChild extends \yii\db\ActiveRecord
      */
     public function getParent0()
     {
-        return $this->hasOne(AuthItem::className(), ['name' => 'parent']);
+        return $this->hasOne(AuthItem::class, ['name' => 'parent']);
     }
 
     /**
@@ -61,6 +59,6 @@ class AuthItemChild extends \yii\db\ActiveRecord
      */
     public function getChild0()
     {
-        return $this->hasOne(AuthItem::className(), ['name' => 'child']);
+        return $this->hasOne(AuthItem::class, ['name' => 'child']);
     }
 }

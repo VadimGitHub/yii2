@@ -8,14 +8,21 @@ $params = array_merge(
 
 $config = [
     'id' => 'id-backend',
-    'name' => Yii::$app->params['name'],
+    'name' => 'TestProject App',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => [
         'log'
     ],
     'homeUrl' => '/admin',
-    'modules' => [],
+    'modules' => [
+        'dynagrid'=> [
+            'class'=>'\kartik\dynagrid\Module',
+        ],
+        'gridview'=> [
+            'class'=>'\kartik\grid\Module',
+        ],
+    ],
     'components' => [
         'db' => require(__DIR__.'/db.php'),
         'request' => [

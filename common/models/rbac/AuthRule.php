@@ -2,8 +2,6 @@
 
 namespace common\models\rbac;
 
-use Yii;
-
 /**
  * This is the model class for table "auth_rule".
  *
@@ -57,6 +55,6 @@ class AuthRule extends \yii\db\ActiveRecord
      */
     public function getAuthItems()
     {
-        return $this->hasMany(AuthItem::className(), ['rule_name' => 'name']);
+        return $this->hasMany(AuthItem::class, ['rule_name' => 'name']);
     }
 }
